@@ -1,6 +1,6 @@
 export type Screen = 'landing' | 'recover' | 'step1' | 'step2' | 'step3' | 'loading' | 'result'
 export type Strategy = 'snowball' | 'avalanche' | 'consolidation' | 'ai'
-export type Currency = 'USD' | 'PYG' | 'ARS' | 'BRL' | 'COP' | 'MXN'
+export type Currency = 'USD' | 'EUR' | 'GBP' | 'PYG' | 'ARS' | 'BRL' | 'COP' | 'MXN'
 export type Lang = 'es' | 'en'
 
 export interface Debt {

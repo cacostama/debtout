@@ -1,3 +1,4 @@
+import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { Landing } from './components/screens/Landing'
@@ -17,7 +18,7 @@ const screenVariants = {
   exit: { opacity: 0, y: -16, transition: { duration: 0.25 } }
 } as const
 
-const screens: Record<Screen, ReturnType<typeof Landing>> = {
+const screens: Record<Screen, React.ReactElement> = {
   landing: <Landing />,
   recover: <RecoverPlan />,
   step1: <Step1 />,

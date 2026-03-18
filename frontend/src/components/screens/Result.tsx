@@ -9,9 +9,18 @@ import { buildPlanClipboardText, getDebtTotals } from '../../lib/calculations'
 import { useI18n } from '../../lib/i18n'
 import { useStore } from '../../store/useStore'
 
+const STRATEGY_DISPLAY_NAMES: Record<string, string> = {
+  ai: 'Plan Personalizado IA',
+  snowball: 'Bola de Nieve',
+  avalanche: 'Alud / Avalancha',
+  consolidation: 'Consolidación',
+}
+
 export function Result() {
   const { t, lang } = useI18n()
-  const { resultado, pin, userData } = useStore()
+  const resultado = useStore((state) => state.resultado)
+  const pin = useStore((state) => state.pin)
+  const userData = useStore((state) => state.userData)
   const reset = useStore((state) => state.reset)
   const [copied, setCopied] = useState(false)
 
@@ -35,7 +44,7 @@ export function Result() {
           <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <h2 className="font-syne text-3xl font-extrabold text-text sm:text-5xl">
-                {userData.nombre ? t('result.titleNamed', { name: userData.nombre }) : t('result.titleAnon')}
+                {userData.nombre.trim() ? t('result.titleNamed', { name: userData.nombre.trim() }) : t('result.titleAnon')}
               </h2>
               <p className="mt-5 font-syne text-2xl font-bold text-gold sm:text-3xl">
                 {t('result.freedomDate', { date: resultado.fecha_libertad })}
@@ -54,7 +63,7 @@ export function Result() {
             currency={userData.moneda}
             format="currency"
           />
-          <MetricCard label={t('result.totalTime')} value={resultado.meses_total} />
+          <MetricCard label={t('result.totalTime')} value={resultado.meses_total} format="months" />
           <MetricCard
             label={t('result.savedInterest')}
             value={Math.round(resultado.intereses_ahorrados)}
@@ -65,7 +74,7 @@ export function Result() {
 
         <div className="rounded-2xl border border-border bg-surface p-6">
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-accent">{t('result.strategy')}</p>
-          <h3 className="mt-3 font-syne text-2xl font-bold text-text">{resultado.estrategia_usada}</h3>
+          <h3 className="mt-3 font-syne text-2xl font-bold text-text">{STRATEGY_DISPLAY_NAMES[resultado.estrategia_usada] ?? resultado.estrategia_usada}</h3>
           <p className="mt-4 whitespace-pre-line leading-7 text-snow">{resultado.razon_estrategia}</p>
         </div>
 

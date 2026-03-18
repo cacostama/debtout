@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { ProgressBar } from '../ui/ProgressBar'
 import { useI18n } from '../../lib/i18n'
@@ -52,7 +52,21 @@ export function Loading() {
           <span className="font-syne text-3xl font-extrabold text-text">D</span>
         </motion.div>
         <h2 className="mt-6 font-syne text-3xl font-extrabold text-text">{t('loading.title')}</h2>
-        <p className="mt-4 min-h-[56px] text-lg text-snow">{t(loadingKeys[messageIndex])}</p>
+
+        <div className="relative mt-4 flex min-h-[56px] items-center justify-center overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={messageIndex}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="absolute text-lg text-snow"
+            >
+              {t(loadingKeys[messageIndex])}
+            </motion.p>
+          </AnimatePresence>
+        </div>
         <div className="mt-8">
           <ProgressBar progress={progress} />
         </div>

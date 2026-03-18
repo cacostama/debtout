@@ -36,15 +36,13 @@ export function useDebtPlan() {
   const recoverMutation = useMutation({
     mutationFn: async (pin: string) => {
       setLoading(true)
-      setError(null)
       return recoverPlan(pin)
     },
     onSuccess: (response) => {
       setResultado(response.plan, response.pin, response.created_at, response.expires_at)
       setScreen('result')
     },
-    onError: (error) => {
-      setError(normalizeError(error))
+    onError: () => {
       setLoading(false)
     }
   })

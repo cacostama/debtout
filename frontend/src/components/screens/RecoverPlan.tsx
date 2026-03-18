@@ -8,30 +8,31 @@ import { useStore } from '../../store/useStore'
 export function RecoverPlan() {
   const { t } = useI18n()
   const setScreen = useStore((state) => state.setScreen)
-  const setError = useStore((state) => state.setError)
-  const error = useStore((state) => state.error)
   const { recoverPlan, isRecovering } = useDebtPlan()
   const [pin, setPin] = useState('')
+  const [localError, setLocalError] = useState<string | null>(null)
 
   const handleRecover = async () => {
     if (pin.length !== 7) {
-      setError(t('error.invalid_pin'))
+      setLocalError(t('error.invalid_pin'))
       return
     }
+
+    setLocalError(null)
 
     try {
       await recoverPlan(pin)
     } catch (reason) {
       const message = reason instanceof Error ? reason.message : ''
       if (message.includes('No encontramos') || message.includes('could not find')) {
-        setError(t('error.no_plan'))
+        setLocalError(t('error.no_plan'))
         return
       }
       if (message.includes('expir')) {
-        setError(t('error.expired_plan'))
+        setLocalError(t('error.expired_plan'))
         return
       }
-      setError(t('error.recover'))
+      setLocalError(t('error.recover'))
     }
   }
 
@@ -47,15 +48,20 @@ export function RecoverPlan() {
           <input
             value={pin}
             onChange={(event) => {
-              setError(null)
-              setPin(formatPin(event.target.value))
+              setLocalError(null)
+              const rawValue = event.target.value.replace(/[^\d-]/g, '')
+              setPin(formatPin(rawValue))
             }}
             placeholder={t('recover.placeholder')}
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            maxLength={7}
+            pattern="\d{3}-\d{3}"
             className="w-full rounded-lg border border-border bg-surface2 px-4 py-3 font-mono text-2xl tracking-[0.26em] text-text placeholder:text-muted transition focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/20"
           />
         </label>
 
-        {error ? <p className="mt-3 text-sm text-danger">{error}</p> : null}
+        {localError ? <p className="mt-3 text-sm text-danger">{localError}</p> : null}
 
         <div className="mt-8 flex items-center justify-between">
           <button

@@ -7,14 +7,17 @@ interface MetricCardProps {
   label: string
   value: number
   currency?: Currency
-  format?: 'currency' | 'number'
+  format?: 'currency' | 'number' | 'months'
 }
 
 export function MetricCard({ label, value, currency, format = 'number' }: MetricCardProps) {
   const counter = useAnimatedCounter(value)
-  const { lang } = useI18n()
-  const display =
-    format === 'currency' && currency ? formatCurrency(counter, currency, lang) : `${counter}`
+  const { lang, t } = useI18n()
+  const display = (() => {
+    if (format === 'currency' && currency) return formatCurrency(counter, currency, lang)
+    if (format === 'months') return t('result.months', { count: counter })
+    return `${counter}`
+  })()
 
   return (
     <div className="rounded-2xl border border-border bg-surface p-5">

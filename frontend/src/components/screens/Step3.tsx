@@ -11,28 +11,27 @@ export function Step3() {
   const userData = useStore((state) => state.userData)
   const setUserData = useStore((state) => state.setUserData)
   const setScreen = useStore((state) => state.setScreen)
-  const setError = useStore((state) => state.setError)
   const { generatePlan, isGenerating } = useDebtPlan()
 
   const handleGenerate = async () => {
-    try {
-      setScreen('loading')
-      await generatePlan({
-        nombre: userData.nombre,
-        extra_mensual: userData.extraMensual,
-        moneda: userData.moneda,
-        estrategia: userData.estrategia,
-        lang,
-        deudas: userData.deudas.map((debt) => ({
-          nombre: debt.nombre.trim(),
-          saldo: debt.saldo,
-          tasa: debt.tasa,
-          cuota_min: debt.cuotaMin
-        }))
-      })
-    } catch (error) {
-      setError(error instanceof Error ? error.message : t('error.generate'))
-    }
+    setScreen('loading')
+    // Error handling is owned by useDebtPlan's onError callback,
+    // which sets the error state and navigates back to step3.
+    generatePlan({
+      nombre: userData.nombre,
+      extra_mensual: userData.extraMensual,
+      moneda: userData.moneda,
+      estrategia: userData.estrategia,
+      lang,
+      deudas: userData.deudas.map((debt) => ({
+        nombre: debt.nombre.trim(),
+        saldo: debt.saldo,
+        tasa: debt.tasa,
+        cuota_min: debt.cuotaMin
+      }))
+    }).catch(() => {
+      // onError in useDebtPlan already set error + navigated to step3
+    })
   }
 
   return (

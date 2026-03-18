@@ -4,7 +4,7 @@ import { useI18n } from '../../lib/i18n'
 import { useStore } from '../../store/useStore'
 import type { Currency } from '../../types'
 
-const currencies: Currency[] = ['USD', 'PYG', 'ARS', 'BRL', 'COP', 'MXN']
+const currencies: Currency[] = ['USD', 'EUR', 'GBP', 'PYG', 'ARS', 'BRL', 'COP', 'MXN']
 
 export function Step1() {
   const { lang, setLang, t } = useI18n()

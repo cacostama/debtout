@@ -14,6 +14,8 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
 )
 
+# Todas las consultas a la base usan SQLModel ORM, que genera queries parametrizadas.
+
 
 def create_db() -> None:
     SQLModel.metadata.create_all(engine)

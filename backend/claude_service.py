@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import date
 from typing import Any
 
 import httpx
@@ -7,8 +8,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-haiku-4-5")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 MAX_TOKENS = int(os.getenv("MAX_TOKENS", "1500"))
 
 
@@ -24,11 +25,13 @@ async def generate_debt_plan(
     lang: str,
     deudas: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    if not ANTHROPIC_API_KEY:
+    if not OPENAI_API_KEY:
         raise ClaudeServiceError("La integración con IA no está configurada todavía.")
 
+    today = date.today()
     prompt = f"""Sos un experto asesor financiero especializado en economías latinoamericanas.
 {"Respond ENTIRELY in English." if lang == "en" else "Respondé COMPLETAMENTE en Español."}
+Today's date is {today.strftime("%B %Y")}. All projected dates (fecha_libertad, mes_liquidacion) must be {today.strftime("%B %Y")} or later, never in the past.
 
 Usuario: {nombre or 'Usuario'}
 Dinero extra disponible por mes: {moneda} {extra_mensual}
@@ -56,14 +59,13 @@ Respondé ÚNICAMENTE con JSON válido (sin markdown, sin backticks):
     try:
         async with httpx.AsyncClient(timeout=25.0) as client:
             response = await client.post(
-                "https://api.anthropic.com/v1/messages",
+                "https://api.openai.com/v1/chat/completions",
                 headers={
                     "Content-Type": "application/json",
-                    "x-api-key": ANTHROPIC_API_KEY,
-                    "anthropic-version": "2023-06-01",
+                    "Authorization": f"Bearer {OPENAI_API_KEY}",
                 },
                 json={
-                    "model": CLAUDE_MODEL,
+                    "model": OPENAI_MODEL,
                     "max_tokens": MAX_TOKENS,
                     "messages": [{"role": "user", "content": prompt}],
                 },
@@ -78,7 +80,7 @@ Respondé ÚNICAMENTE con JSON válido (sin markdown, sin backticks):
 
     try:
         data = response.json()
-        raw = data["content"][0]["text"].strip()
+        raw = data["choices"][0]["message"]["content"].strip()
         clean = raw.replace("```json", "").replace("```", "").strip()
         result = json.loads(clean)
     except (KeyError, IndexError, json.JSONDecodeError) as exc:
