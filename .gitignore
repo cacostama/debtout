@@ -1,0 +1,93 @@
+# ============================================
+# DebtOut — .gitignore
+# ============================================
+ 
+# ⚠️ SEGURIDAD — NUNCA subir al repo
+# ============================================
+.env
+.env.local
+.env.production
+.env.*.local
+*.env
+ 
+# Base de datos — solo existe en el servidor
+backend/debtout.db
+backend/*.db
+*.db
+*.sqlite
+*.sqlite3
+ 
+# ============================================
+# Python / FastAPI
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.eggs/
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+ 
+# ============================================
+# Node / React / Vite
+# ============================================
+node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+.npm
+*.tsbuildinfo
+ 
+# ============================================
+# Sistema operativo
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+ 
+# ============================================
+# Editores e IDEs
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+ 
+# ============================================
+# Logs
+# ============================================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+ 
+# ============================================
+# Misceláneos
+# ============================================
+*.bak
+*.tmp
+*.temp
+.cache/
+coverage/
