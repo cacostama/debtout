@@ -20,13 +20,13 @@
 ## 📸 Capturas
 
 ### Landing
-![Landing](./screenshots/landing.png)
+![Landing](./screenshots/Landing.png)
 
 ### Carga de deudas
-![Deudas](./screenshots/deudas.png)
+![Deudas](./screenshots/Deudas.png)
 
 ### Resultado con PIN
-![Resultado](./screenshots/resultado.png)
+![Resultado](./screenshots/Resultado.png)
 
 ---
 
