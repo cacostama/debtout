@@ -34,13 +34,13 @@
 
 ## ¿Qué es DebtOut?
 
-DebtOut es un **coach financiero personal con IA** que ayuda a personas en LATAM a salir de sus deudas con un plan claro, personalizado y accionable.
+DebtOut es un **coach financiero personal con IA** que ayuda a cualquier persona en el mundo a salir de sus deudas con un plan claro, personalizado y accionable.
 
-El usuario ingresa sus deudas, elige una estrategia de pago, y **Claude AI** genera un plan completo adaptado a la realidad latinoamericana. El plan se guarda con un **PIN privado de 6 dígitos** — sin registro, sin email, sin complicaciones.
+El usuario ingresa sus deudas, elige una estrategia de pago, y **OpenAI gpt-4o-mini** genera un plan completo adaptado a su situación. El plan se guarda con un **PIN privado de 6 dígitos** — sin registro, sin email, sin complicaciones.
 
 ### El problema real
 
-La mayoría de personas en LATAM no tienen acceso a asesoramiento financiero real. Las apps existentes son complejas, en inglés, o no contemplan nuestra realidad: cooperativas, ingresos variables, informalidad, múltiples monedas.
+La mayoría de personas no tienen acceso a asesoramiento financiero real. Las apps existentes son complejas, costosas, o no contemplan la realidad de cada usuario: ingresos variables, múltiples monedas, distintos sistemas financieros.
 
 **DebtOut democratiza ese acceso en menos de 2 minutos.**
 
@@ -50,14 +50,14 @@ La mayoría de personas en LATAM no tienen acceso a asesoramiento financiero rea
 
 | Feature | Descripción |
 |---|---|
-| 🤖 **Plan con IA** | Claude analiza tu situación y genera un plan personalizado |
+| 🤖 **Plan con IA** | OpenAI analiza tu situación y genera un plan personalizado |
 | ❄️ **Bola de Nieve** | Menor saldo primero — victorias rápidas para mantenerte motivado |
 | 🌊 **Avalancha** | Mayor interés primero — pagás menos intereses en total |
 | 🔗 **Consolidación** | Evalúa si conviene unificar tus deudas |
 | 🔑 **PIN privado** | Plan guardado 30 días — recuperable con tu PIN de 6 dígitos |
 | 📅 **Fecha de libertad** | Mes y año exacto en que estarás libre de deudas |
 | 💰 **Intereses ahorrados** | Cuánto ahorrás vs pagar solo mínimos |
-| 🌎 **Consejo LATAM** | Adaptado a cooperativas, informalidad, múltiples monedas |
+| 💡 **Consejo financiero personalizado** | Aplicable a cualquier moneda, país o contexto económico |
 | 🌐 **Bilingüe** | Español e Inglés |
 | 📱 **Responsive** | Mobile y desktop |
 
@@ -72,14 +72,14 @@ CubePath VPS gp.nano
 │   └── /api/* → FastAPI (reverse proxy)
 │
 ├── FastAPI + Python (puerto 8000)
-│   ├── POST /api/plan/generate  → Claude API → SQLite → PIN
+│   ├── POST /api/plan/generate  → OpenAI API → SQLite → PIN
 │   └── GET  /api/plan/{pin}    → SQLite → plan
 │
 └── SQLite (debtout.db)
     └── Planes con expiración de 30 días
 ```
 
-**Decisión de seguridad clave:** La API key de Anthropic vive en el servidor (FastAPI), nunca en el frontend. Todos los proyectos que exponen la key en el browser son vulnerables — DebtOut no.
+**Decisión de seguridad clave:** La API key de OpenAI vive en el servidor (FastAPI), nunca en el frontend. Todos los proyectos que exponen la key en el browser son vulnerables — DebtOut no.
 
 ---
 
@@ -94,7 +94,7 @@ CubePath VPS gp.nano
 **Backend**
 - FastAPI (Python 3.11)
 - SQLModel + SQLite
-- httpx (llamadas async a Claude API)
+- httpx (llamadas async a OpenAI API)
 
 **Infraestructura**
 - CubePath VPS gp.nano
@@ -113,7 +113,7 @@ DebtOut está desplegado en un **VPS gp.nano de CubePath**:
 - **Systemd** mantiene FastAPI corriendo como servicio
 - **Deploy** en menos de 2 minutos con el script `deploy.sh`
 
-CubePath permite hostear el frontend y el backend en un mismo servidor con costo mínimo y alta disponibilidad — ideal para LATAM.
+CubePath permite hostear el frontend y el backend en un mismo servidor con costo mínimo y alta disponibilidad — ideal para cualquier escala.
 
 ---
 
@@ -122,13 +122,13 @@ CubePath permite hostear el frontend y el backend en un mismo servidor con costo
 ### Prerequisitos
 - Node.js 18+
 - Python 3.11+
-- API key de Anthropic ([console.anthropic.com](https://console.anthropic.com))
+- API key de OpenAI ([platform.openai.com](https://platform.openai.com))
 
 ### Backend
 ```bash
 cd backend
 cp .env.example .env
-# Editar .env con tu ANTHROPIC_API_KEY
+# Editar .env con tu OPENAI_API_KEY
 
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
@@ -165,7 +165,7 @@ debtout/
 │       └── types/                # TypeScript types
 ├── backend/           # FastAPI + SQLite
 │   ├── main.py        # App + rutas
-│   ├── claude_service.py  # Integración Claude API
+│   ├── claude_service.py  # Integración OpenAI API
 │   ├── pin_service.py     # Generación de PINs únicos
 │   └── models.py      # Schema SQLite
 ├── nginx.conf         # Config reverse proxy
@@ -173,6 +173,16 @@ debtout/
 ├── AGENTS.md          # Instrucciones para agentes de IA
 └── PROMPT_DEBTOUT.md  # Prompt maestro de construcción
 ```
+
+---
+
+## 🔒 Seguridad implementada
+- Rate limiting: máximo 5 requests/min en generación de planes
+- Protección brute force: 10 intentos fallidos = bloqueo 15 minutos
+- Headers de seguridad: X-Frame-Options, CSP, HSTS, XSS Protection
+- API key nunca expuesta en el frontend — solo en el servidor
+- Sanitización de inputs y prevención XSS
+- Límite de tamaño de requests: 10KB
 
 ---
 
