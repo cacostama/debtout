@@ -9,6 +9,8 @@
 [![Stack](https://img.shields.io/badge/Stack-React%20%2B%20FastAPI-61DAFB?style=for-the-badge)](https://vitejs.dev)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
+![DebtOut Demo](./screenshots/Animation.gif)
+
 ---
 
 ## 🔗 Demo en vivo
