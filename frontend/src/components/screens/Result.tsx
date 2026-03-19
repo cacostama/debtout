@@ -5,7 +5,7 @@ import { MetricCard } from '../ui/MetricCard'
 import { PinDisplay } from '../ui/PinDisplay'
 import { ScoreCircle } from '../ui/ScoreCircle'
 import { TimelineItem } from '../ui/TimelineItem'
-import { buildPlanClipboardText, getDebtTotals } from '../../lib/calculations'
+import { buildPlanClipboardText } from '../../lib/calculations'
 import { useI18n } from '../../lib/i18n'
 import { useStore } from '../../store/useStore'
 
@@ -22,13 +22,16 @@ export function Result() {
   const pin = useStore((state) => state.pin)
   const userData = useStore((state) => state.userData)
   const reset = useStore((state) => state.reset)
+  const setScreen = useStore((state) => state.setScreen)
   const [copied, setCopied] = useState(false)
 
   if (!resultado || !pin) {
     return null
   }
 
-  const totals = getDebtTotals(userData.deudas)
+  const totalDebt = resultado.orden_pago.reduce((sum, item) => sum + item.saldo, 0)
+  const interesesAhorrados = Number(resultado.intereses_ahorrados ?? 0)
+  console.log('[DebtOut] intereses_ahorrados raw:', resultado.intereses_ahorrados, typeof resultado.intereses_ahorrados, '→ parsed:', interesesAhorrados)
 
   const handleCopyPlan = async () => {
     const content = buildPlanClipboardText(resultado, userData.moneda, lang, userData.nombre)
@@ -56,19 +59,36 @@ export function Result() {
 
         <PinDisplay pin={pin} />
 
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={() => setScreen('step2')}
+            className="rounded-xl border border-accent3/40 px-5 py-2.5 font-syne text-sm font-semibold text-accent3 transition hover:border-accent3 hover:bg-accent3/10"
+          >
+            {t('result.addDebt')}
+          </button>
+        </div>
+
         <div className="grid gap-4 md:grid-cols-3">
           <MetricCard
             label={t('result.totalDebt')}
-            value={Math.round(totals.totalBalance)}
+            value={Math.round(totalDebt)}
             currency={userData.moneda}
             format="currency"
+            tooltip={t('result.tooltip.totalDebt')}
           />
-          <MetricCard label={t('result.totalTime')} value={resultado.meses_total} format="months" />
+          <MetricCard
+            label={t('result.totalTime')}
+            value={resultado.meses_total}
+            format="months"
+            tooltip={t('result.tooltip.totalTime')}
+          />
           <MetricCard
             label={t('result.savedInterest')}
-            value={Math.round(resultado.intereses_ahorrados)}
+            value={interesesAhorrados}
             currency={userData.moneda}
             format="currency"
+            tooltip={t('result.tooltip.savedInterest')}
           />
         </div>
 
