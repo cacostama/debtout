@@ -4,8 +4,8 @@
 > **EN:** Your smart plan to become debt-free
 
 [![Hackathon](https://img.shields.io/badge/Hackathon-CubePath%202026-00e5a0?style=for-the-badge&logo=cloud&logoColor=black)](https://github.com/midudev/hackaton-cubepath-2026)
-[![Deploy](https://img.shields.io/badge/Deploy-CubePath%20VPS-0088FF?style=for-the-badge&logo=cloud&logoColor=white)](http://TU_IP_CUBEPATH)
-[![AI](https://img.shields.io/badge/AI-Claude%20claude--haiku--4--5-CC785C?style=for-the-badge)](https://anthropic.com)
+[![Deploy](https://img.shields.io/badge/Deploy-CubePath%20VPS-0088FF?style=for-the-badge&logo=cloud&logoColor=white)](http://194.26.100.138)
+[![AI](https://img.shields.io/badge/AI-OpenAI%20gpt--4o--mini-CC785C?style=for-the-badge)](https://openai.com)
 [![Stack](https://img.shields.io/badge/Stack-React%20%2B%20FastAPI-61DAFB?style=for-the-badge)](https://vitejs.dev)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
@@ -13,13 +13,20 @@
 
 ## 🔗 Demo en vivo
 
-👉 **[debtout.app](http://TU_IP_CUBEPATH)** — Desplegado en CubePath VPS
+👉 **[http://194.26.100.138](http://194.26.100.138)** — Desplegado en CubePath VPS
 
 ---
 
 ## 📸 Capturas
 
-> *Screenshots y GIFs del flujo completo — próximamente*
+### Landing
+![Landing](./screenshots/landing.png)
+
+### Carga de deudas
+![Deudas](./screenshots/deudas.png)
+
+### Resultado con PIN
+![Resultado](./screenshots/resultado.png)
 
 ---
 
