@@ -1,0 +1,40 @@
+- main [ref=e4]:
+  - generic [ref=e51]:
+    - paragraph [ref=e52]: Paso 2
+    - heading "Cargá todas tus deudas" [level=2] [ref=e53]
+    - paragraph [ref=e54]: Mientras más preciso sea esto, mejor será el plan.
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e59]:
+            - paragraph [ref=e60]: Deuda 1
+            - heading "Prestamo" [level=3] [ref=e91]
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: Nombre de la deuda
+              - textbox "Nombre de la deuda" [ref=e92]:
+                - /placeholder: Ej. Tarjeta Visa
+                - text: Prestamo
+            - generic [ref=e67]:
+              - generic [ref=e68]: Saldo total USD
+              - textbox "Saldo total USD" [ref=e93]: 40,000,000
+            - generic [ref=e71]:
+              - generic [ref=e72]: Tasa anual %
+              - spinbutton "Tasa anual %" [active] [ref=e73]: "12"
+            - generic [ref=e74]:
+              - generic [ref=e75]: Cuota mínima mensual USD
+              - textbox "Cuota mínima mensual USD" [ref=e76]: 1,000,000
+        - button "Agregar deuda +" [ref=e77] [cursor=pointer]
+      - complementary [ref=e78]:
+        - paragraph [ref=e79]: Deudas
+        - paragraph [ref=e80]: "1"
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - paragraph [ref=e83]: Total
+            - paragraph [ref=e84]: US$ 40.000.000
+          - generic [ref=e85]:
+            - paragraph [ref=e86]: Cuotas
+            - paragraph [ref=e87]: US$ 1.000.000
+    - generic [ref=e88]:
+      - button "← Volver" [ref=e89] [cursor=pointer]
+      - button "Continuar →" [ref=e90] [cursor=pointer]

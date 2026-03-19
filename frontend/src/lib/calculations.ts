@@ -27,6 +27,29 @@ export function formatPercent(value: number, lang: Lang): string {
   }).format(value)
 }
 
+function getThousandsSeparator(currency: Currency): string {
+  if (currency === 'PYG' || currency === 'ARS') {
+    return '.'
+  }
+
+  return ','
+}
+
+export function formatDebtInput(value: number | string, currency: Currency): string {
+  const digits = String(value).replace(/\D/g, '')
+  if (!digits) {
+    return ''
+  }
+
+  const separator = getThousandsSeparator(currency)
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, separator)
+}
+
+export function parseDebtInput(value: string): number {
+  const digits = value.replace(/\D/g, '')
+  return digits ? Number(digits) : 0
+}
+
 export function formatPin(value: string): string {
   const digits = value.replace(/\D/g, '').slice(0, 6)
   if (digits.length <= 3) {

@@ -52,6 +52,11 @@ export function Step2() {
     setScreen('step3')
   }
 
+  const handleDebtChange = (id: string, field: keyof Debt, value: string | number) => {
+    updateDebt(id, { [field]: value } as Partial<Debt>)
+    setError(null)
+  }
+
   return (
     <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
       <div className="rounded-[28px] border border-border bg-surface/90 p-6 sm:p-8">
@@ -70,7 +75,7 @@ export function Step2() {
                   currency={moneda}
                   canRemove={deudas.length > 1}
                   errors={errorsByDebt[debt.id] ?? {}}
-                  onChange={(id, field, value) => updateDebt(id, { [field]: value } as Partial<Debt>)}
+                  onChange={handleDebtChange}
                   onRemove={removeDebt}
                 />
               ))}

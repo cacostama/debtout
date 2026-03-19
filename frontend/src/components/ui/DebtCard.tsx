@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
+import { formatDebtInput, parseDebtInput } from '../../lib/calculations'
 import { useI18n } from '../../lib/i18n'
 import type { Currency, Debt } from '../../types'
 
@@ -15,6 +17,21 @@ interface DebtCardProps {
 
 export function DebtCard({ debt, index, currency, canRemove, errors, onChange, onRemove }: DebtCardProps) {
   const { t } = useI18n()
+  const [saldoInput, setSaldoInput] = useState(() =>
+    debt.saldo > 0 ? formatDebtInput(debt.saldo, currency) : ''
+  )
+  const [cuotaMinInput, setCuotaMinInput] = useState(() =>
+    debt.cuotaMin > 0 ? formatDebtInput(debt.cuotaMin, currency) : ''
+  )
+
+  // Re-format when currency changes (separator may differ: dot vs comma)
+  useEffect(() => {
+    setSaldoInput(debt.saldo > 0 ? formatDebtInput(debt.saldo, currency) : '')
+  }, [currency])
+
+  useEffect(() => {
+    setCuotaMinInput(debt.cuotaMin > 0 ? formatDebtInput(debt.cuotaMin, currency) : '')
+  }, [currency])
 
   return (
     <motion.div
@@ -59,10 +76,23 @@ export function DebtCard({ debt, index, currency, canRemove, errors, onChange, o
             {t('debt.balanceLabel')} <span className="font-mono text-muted">{currency}</span>
           </span>
           <input
-            type="number"
-            min="0"
-            value={debt.saldo || ''}
-            onChange={(event) => onChange(debt.id, 'saldo', Number(event.target.value))}
+            type="text"
+            inputMode="numeric"
+            value={saldoInput}
+            onFocus={(event) => {
+              // Strip thousand separators so cursor works freely while editing
+              const raw = event.target.value.replace(/\D/g, '')
+              setSaldoInput(raw)
+            }}
+            onChange={(event) => {
+              const digits = event.target.value.replace(/\D/g, '')
+              setSaldoInput(digits)
+              onChange(debt.id, 'saldo', digits ? Number(digits) : 0)
+            }}
+            onBlur={(event) => {
+              const num = Number(event.target.value.replace(/\D/g, ''))
+              setSaldoInput(num > 0 ? formatDebtInput(num, currency) : '')
+            }}
             className="w-full rounded-lg border border-border bg-surface2 px-4 py-3 font-mono text-text placeholder:text-muted transition focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/20"
           />
           {errors.saldo ? <span className="mt-2 block text-sm text-danger">{errors.saldo}</span> : null}
@@ -86,10 +116,22 @@ export function DebtCard({ debt, index, currency, canRemove, errors, onChange, o
             {t('debt.minimumLabel')} <span className="font-mono text-muted">{currency}</span>
           </span>
           <input
-            type="number"
-            min="0"
-            value={debt.cuotaMin || ''}
-            onChange={(event) => onChange(debt.id, 'cuotaMin', Number(event.target.value))}
+            type="text"
+            inputMode="numeric"
+            value={cuotaMinInput}
+            onFocus={(event) => {
+              const raw = event.target.value.replace(/\D/g, '')
+              setCuotaMinInput(raw)
+            }}
+            onChange={(event) => {
+              const digits = event.target.value.replace(/\D/g, '')
+              setCuotaMinInput(digits)
+              onChange(debt.id, 'cuotaMin', digits ? Number(digits) : 0)
+            }}
+            onBlur={(event) => {
+              const num = Number(event.target.value.replace(/\D/g, ''))
+              setCuotaMinInput(num > 0 ? formatDebtInput(num, currency) : '')
+            }}
             className="w-full rounded-lg border border-border bg-surface2 px-4 py-3 font-mono text-text placeholder:text-muted transition focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/20"
           />
           {errors.cuotaMin ? <span className="mt-2 block text-sm text-danger">{errors.cuotaMin}</span> : null}

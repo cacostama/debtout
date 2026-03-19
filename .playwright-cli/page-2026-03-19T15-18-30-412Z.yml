@@ -1,0 +1,40 @@
+- main [ref=e4]:
+  - generic [ref=e122]:
+    - paragraph [ref=e123]: Paso 2
+    - heading "Cargá todas tus deudas" [level=2] [ref=e124]
+    - paragraph [ref=e125]: Mientras más preciso sea esto, mejor será el plan.
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - generic [ref=e130]:
+            - paragraph [ref=e131]: Deuda 1
+            - heading "Prestamo editado" [level=3] [ref=e132]
+          - generic [ref=e133]:
+            - generic [ref=e134]:
+              - generic [ref=e135]: Nombre de la deuda
+              - textbox "Nombre de la deuda" [ref=e136]:
+                - /placeholder: Ej. Tarjeta Visa
+                - text: Prestamo editado
+            - generic [ref=e137]:
+              - generic [ref=e138]: Saldo total PYG
+              - textbox "Saldo total PYG" [ref=e139]: 45.000.000
+            - generic [ref=e140]:
+              - generic [ref=e141]: Tasa anual %
+              - spinbutton "Tasa anual %" [ref=e142]: "12"
+            - generic [ref=e143]:
+              - generic [ref=e144]: Cuota mínima mensual PYG
+              - textbox "Cuota mínima mensual PYG" [ref=e145]: 1.000.000
+        - button "Agregar deuda +" [ref=e146] [cursor=pointer]
+      - complementary [ref=e147]:
+        - paragraph [ref=e148]: Deudas
+        - paragraph [ref=e149]: "1"
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - paragraph [ref=e152]: Total
+            - paragraph [ref=e153]: PYG 45.000.000
+          - generic [ref=e154]:
+            - paragraph [ref=e155]: Cuotas
+            - paragraph [ref=e156]: PYG 1.000.000
+    - generic [ref=e157]:
+      - button "← Volver" [ref=e158] [cursor=pointer]
+      - button "Continuar →" [ref=e159] [cursor=pointer]

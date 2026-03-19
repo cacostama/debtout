@@ -1,0 +1,33 @@
+- main [ref=e4]:
+  - generic [ref=e97]:
+    - paragraph [ref=e98]: Paso 1
+    - heading "Armemos tu punto de partida" [level=2] [ref=e99]
+    - paragraph [ref=e100]: Unos pocos datos para personalizar tu plan.
+    - generic [ref=e101]:
+      - generic [ref=e102]:
+        - generic [ref=e103]: Nombre
+        - textbox "Nombre" [ref=e104]:
+          - /placeholder: ¿Cómo te llamamos?
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - generic [ref=e107]: Ingreso mensual disponible
+          - spinbutton "Ingreso mensual disponible" [ref=e108]: "5000"
+        - generic [ref=e109]:
+          - generic [ref=e110]: Moneda
+          - combobox "Moneda" [ref=e111]:
+            - option "USD" [selected]
+            - option "EUR"
+            - option "GBP"
+            - option "PYG"
+            - option "ARS"
+            - option "BRL"
+            - option "COP"
+            - option "MXN"
+      - generic [ref=e112]:
+        - generic [ref=e113]: Idioma del plan
+        - generic [ref=e114]:
+          - button "ES" [ref=e115] [cursor=pointer]
+          - button "EN" [ref=e116] [cursor=pointer]
+    - generic [ref=e117]:
+      - button "← Volver" [ref=e118] [cursor=pointer]
+      - button "Continuar →" [ref=e119] [cursor=pointer]

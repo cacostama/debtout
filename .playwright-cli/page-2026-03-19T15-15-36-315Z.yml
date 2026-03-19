@@ -1,0 +1,12 @@
+- main [ref=e4]:
+  - generic [ref=e8]:
+    - heading "DebtOut" [level=1] [ref=e10]
+    - paragraph [ref=e12]: Tu plan inteligente para salir de deudas
+    - paragraph [ref=e13]: Your smart plan to become debt-free
+    - paragraph [ref=e14]: Ingresá tus deudas, dejá que la IA ordene el caos y guardá tu plan con un PIN privado.
+    - button "Comenzar ahora →" [ref=e16] [cursor=pointer]
+    - generic [ref=e17]:
+      - generic [ref=e18]: ⚡ 2 minutos
+      - generic [ref=e19]: 🔒 PIN privado
+      - generic [ref=e20]: 🤖 Plan con IA
+    - button "Recuperar plan con PIN →" [ref=e21] [cursor=pointer]
