@@ -91,3 +91,10 @@ yarn-error.log*
 *.temp
 .cache/
 coverage/
+
+# ============================================
+# IA
+# ============================================
+AGENTS.md
+PROMPT_DEBTOUT.md
+
