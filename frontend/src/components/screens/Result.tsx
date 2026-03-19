@@ -97,7 +97,7 @@ export function Result() {
         <div className={`grid gap-4 ${resultado.aplica_consolidacion && resultado.consejo_consolidacion ? 'lg:grid-cols-2' : ''}`}>
           <div className="rounded-2xl border border-accent3/30 bg-surface p-6 shadow-info">
             <p className="font-mono text-xs uppercase tracking-[0.28em] text-accent3">{t('result.latam')}</p>
-            <p className="mt-4 leading-7 text-snow">{resultado.consejo_latam}</p>
+            <p className="mt-4 leading-7 text-snow">{resultado.consejo_financiero}</p>
           </div>
 
           {resultado.aplica_consolidacion && resultado.consejo_consolidacion ? (

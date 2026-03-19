@@ -30,7 +30,7 @@ export interface PlanResult {
   orden_pago: PaymentOrder[]
   aplica_consolidacion: boolean
   consejo_consolidacion: string
-  consejo_latam: string
+  consejo_financiero: string
   mensaje_motivacional: string
   advertencia: string
 }

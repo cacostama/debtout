@@ -50,7 +50,7 @@ export function buildPlanClipboardText(
     )
     .join('\n')
 
-  return [intro, owner, result.estrategia_usada, result.razon_estrategia, orders, result.consejo_latam]
+  return [intro, owner, result.estrategia_usada, result.razon_estrategia, orders, result.consejo_financiero]
     .filter(Boolean)
     .join('\n\n')
 }

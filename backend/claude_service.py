@@ -29,7 +29,7 @@ async def generate_debt_plan(
         raise ClaudeServiceError("La integración con IA no está configurada todavía.")
 
     today = date.today()
-    prompt = f"""Sos un experto asesor financiero especializado en economías latinoamericanas.
+    prompt = f"""Sos un experto asesor financiero especializado en finanzas personales a nivel global.
 {"Respond ENTIRELY in English." if lang == "en" else "Respondé COMPLETAMENTE en Español."}
 Today's date is {today.strftime("%B %Y")}. All projected dates (fecha_libertad, mes_liquidacion) must be {today.strftime("%B %Y")} or later, never in the past.
 
@@ -51,7 +51,7 @@ Respondé ÚNICAMENTE con JSON válido (sin markdown, sin backticks):
   "orden_pago": [{{"orden": 1, "nombre": "<>", "saldo": <>, "pago_mensual": <>, "mes_liquidacion": "<Mes Año>", "porcentaje_del_total": <>}}],
   "aplica_consolidacion": <true|false>,
   "consejo_consolidacion": "<string o vacío>",
-  "consejo_latam": "<3-4 oraciones>",
+  "consejo_financiero": "<3-4 oraciones de consejo financiero aplicable a cualquier persona en el mundo>",
   "mensaje_motivacional": "<1-2 oraciones inspiradoras>",
   "advertencia": "<string o vacío>"
 }}"""

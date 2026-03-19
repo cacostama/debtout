@@ -29,7 +29,6 @@ export function PinDisplay({ pin }: PinDisplayProps) {
         >
           {copied ? t('result.copyPinDone') : t('result.copyPin')}
         </button>
-        <span className="text-sm text-snow">{t('result.pinExpiry')}</span>
       </div>
     </div>
   )
